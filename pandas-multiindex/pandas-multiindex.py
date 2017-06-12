@@ -41,3 +41,6 @@ print(errors.to_latex())
 
 # Print the maximal E_v error
 print(errors["E_v"].max())
+
+# Print the maximal E_b error
+print(errors["E_b"].max())
