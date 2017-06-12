@@ -38,3 +38,6 @@ print(errors)
 
 # Print the errors in LaTex format for direct inclusion in the document.
 print(errors.to_latex())
+
+# Print the maximal E_v error
+print(errors["E_v"].max())
