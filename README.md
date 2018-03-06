@@ -161,22 +161,27 @@ It is simple, a solver is defined with a list of parameter study vectors.
 
 To run the study with the 'cavity' example template case and the 'cavity.parameter' example parameter file, under the options wrapped in the 'runStudy.py' script, execute:
 
+```bash
     ./runStudy.py -c cavity -p cavity.parameter  -s myStudy
+```
 
 This creates the parameter directories and the parameter database:
 
+```bash
     > ls
     cavity                     myStudy_00002_cavity  myStudy_00007_cavity  myStudy_00012_cavity  myStudy_00017_cavity  myStudy_00022_cavity  myStudy_00027_cavity
     cavity.parameter           myStudy_00003_cavity  myStudy_00008_cavity  myStudy_00013_cavity  myStudy_00018_cavity  myStudy_00023_cavity  myStudy_00028_cavity
     cavity.parameter.database  myStudy_00004_cavity  myStudy_00009_cavity  myStudy_00014_cavity  myStudy_00019_cavity  myStudy_00024_cavity  myStudy_00029_cavity
     myStudy_00000_cavity       myStudy_00005_cavity  myStudy_00010_cavity  myStudy_00015_cavity  myStudy_00020_cavity  myStudy_00025_cavity  PlyParser_FoamFileParser_parsetab.py
     myStudy_00001_cavity       myStudy_00006_cavity  myStudy_00011_cavity  myStudy_00016_cavity  myStudy_00021_cavity  myStudy_00026_cavity  runStudy.py
+```
 
 
 To understand which variation belongs to which parameter vector, execute
 
 
-    pyFoamRunParameterVariation.py  --list-variations cavity cavity.parameter
+```bash
+    > pyFoamRunParameterVariation.py  --list-variations cavity cavity.parameter
 
     ===============================
     30 variations with 2 parameters
@@ -196,29 +201,30 @@ To understand which variation belongs to which parameter vector, execute
     Variation 6 : {'U': 2, 'N': 8}
     Variation 7 : {'U': 2, 'N': 16}
     Variation 8 : {'U': 2, 'N': 32}
+```
 
 Execution of each individual simulation on the Lichtenberg cluster can be managed easily with a one line for loop: 
 
-    ```bash
+```bash
     for case in myStudy_00*; do cd $case; sbatch ../blockMesh.sbatch; cd ..; done
-    ```
+```
 
 Of course, the 'blockMesh.sbatch' SLURM script should be prepared and available in the study directory, as well as other SLURM scripts responsible for starting your pre-processing and running applications (solvers). 
 
 The script can also be wrapped into a short SHELL script named for example 'bulkeval' 
 
-    ```bash
+```bash
     #! /usr/bin/bash
 
     PATTERN=$1
     CMD=$2
 
     for dir in "$PATTERN"*; do cd $dir; eval "$CMD" && cd ..; done 
-    ```
+```
 
 This can now be used as 
 
 
-    ```bash
+```bash
     bulkeval myStudy_00 "sbatch ../blockMesh.sbatch"
-    ```
+```
