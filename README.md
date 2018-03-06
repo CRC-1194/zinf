@@ -161,7 +161,7 @@ It is simple, a solver is defined with a list of parameter study vectors.
 
 To run the study with the 'cavity' example template case and the 'cavity.parameter' example parameter file, under the options wrapped in the 'runStudy.py' script, execute:
 
-    ./runStudy.py -c cavity -p cavity.parameter  -s myStud
+    ./runStudy.py -c cavity -p cavity.parameter  -s myStudy
 
 This creates the parameter directories and the parameter database:
 
