@@ -47,9 +47,3 @@ call (['pyFoamRunParameterVariation.py', '--no-execute-solver', '--no-case-setup
        '--every-variant-one-case-execution', '--create-database', 
        templateCase, parameterFile]) 
 
-
-#pyFoamRunParameterVariation.py  --no-execute-solver --no-case-setup --no-server-process \
-#                                --no-mesh-create --cloned-case-prefix=$STUDY \
-#                                --every-variant-one-case-execution \
-#                                --create-database \
-#                                $CASE $PARAMETER
