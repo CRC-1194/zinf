@@ -228,3 +228,82 @@ This can now be used as
 ```bash
     bulkeval myStudy_00 "sbatch ../blockMesh.sbatch"
 ```
+
+### Reducing the parameter set (trivially)
+
+Execute
+
+```bash 
+    pyFoamRunParameterVariation.py --list-variations cavity cavity.parameter 
+```
+
+Choose the variations that are to be generated (manually in a trivial case, or processing the variation set based on some conditions), then execute the `pyFoamRunParameterVariation.py` with the option to run an individual variation. 
+
+An example is available in 'pyFoamParameterStudyExample/runReducedStudy.sh'.  
+
+
+### Parameterizing schemes (strings with spaces between them) using aliases
+
+OF schemes will usually have multiple values for the same parameter value. The syntax may look like this for a convection scheme 
+
+    Gauss limited vanLeer superScheme 0.7; 
+
+The syntax can sometimes vary the number of elements. Example, for grad schemes:  
+
+    Gauss linear; // Two strings 
+
+or
+
+    pointCellsLeastSquares; // One string
+
+If quotations are used in the parameter file:  
+
+    gradScheme
+    (
+        "Gauss linear" pointCellsLeastSquares
+    ); 
+
+pyFoam complains. One way to avoid this is to rely on the macro preprocessor in OpenFOAM, and define a file with scheme aliases, for example 'pyFoamParameterStudyExample/schemeAlias': 
+
+    // Grad schemes
+
+    Linear  Gauss linear;
+    PLSQ    pointCellsLeastSquares; 
+
+This defines alias names for schemes, that will then all only have a single word. This file is then included and the aliases are used in an OpenFOAM configuration file. For example, in 'pyFoamParameterStudyExample/cavity/system/fvSchemes.template'
+
+    #include "../../schemeAlias"
+
+    ddtSchemes
+    {
+        default         Euler;
+    }
+
+    gradSchemes
+    {
+        default         Gauss linear;
+        grad(p)         Gauss linear;
+        grad(U)         $|-gradScheme-|;  
+    }
+
+The parameter file of the variation study now contains another vector for gradient schemes:  
+
+    values
+    {
+        solver (icoFoam);
+
+        N
+        (
+            16 32 64 
+        );
+
+        U
+        (
+            1 2 3 
+        ); 
+
+        gradScheme
+        (
+            Linear PLSQ
+        ); 
+    }
