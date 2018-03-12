@@ -24,9 +24,7 @@ ddtSchemes
 
 gradSchemes
 {
-    default         Gauss linear;
-    grad(p)         Gauss linear;
-    grad(U)         $|-gradScheme-|;  
+    grad(p)         $|-gradScheme-|;
 }
 
 divSchemes

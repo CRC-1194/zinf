@@ -281,9 +281,8 @@ This defines alias names for schemes, that will then all only have a single word
 
     gradSchemes
     {
-        default         Gauss linear;
-        grad(p)         Gauss linear;
-        grad(U)         $|-gradScheme-|;  
+        default         none;
+        grad(p)         $|-gradScheme-|;  
     }
 
 The parameter file of the variation study now contains another vector for gradient schemes:  
