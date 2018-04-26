@@ -1,0 +1,8 @@
+EXE_INC = \
+    -std=c++1y \
+    -I$(LIB_SRC)/OpenFOAM/lnInclude \
+    -I$(LIB_SRC)/fileFormats/lnInclude 
+
+EXE_LIBS = \
+    -lOpenFOAM \
+    -lfileFormats

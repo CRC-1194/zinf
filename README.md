@@ -306,3 +306,9 @@ The parameter file of the variation study now contains another vector for gradie
             Linear PLSQ
         ); 
     }
+
+## Writing out points to VTK using existing OpenFOAM libraries
+
+The minimal example for point to VTK output is implemented in the 'foamWritePointsToVtk' application and the code is self documenting. 
+
+To visualize the points, open the 'square.vtk' example data set in ParaView, select the 'Glyph' filter and choose 'Sphere' as 'Glypy Type'.
