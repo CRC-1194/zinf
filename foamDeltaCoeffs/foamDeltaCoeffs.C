@@ -42,9 +42,9 @@ int main(int argc, char *argv[])
     
     const auto& deltaCoeffs = mesh.deltaCoeffs(); 
     
-    Info << "h_min = " << 1. / min(deltaCoeffs()).value() << endl 
-        << "h_max = " << 1. / max(deltaCoeffs()).value() << endl
-        << "h_mean = " << 1. / average(deltaCoeffs()).value() << endl;
+    Info << "h_min = " << 1. / max(deltaCoeffs()).value() << endl 
+        << "h_mean = " << 1. / average(deltaCoeffs()).value() << endl
+        << "h_max = " << 1. / min(deltaCoeffs()).value() << endl;
 
     Info<< nl;
     runTime.printExecutionTime(Info);
